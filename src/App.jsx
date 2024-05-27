@@ -8,6 +8,24 @@ function App() {
   const [word, setWord] = useState([]);
   const [cardsLetter, setCardsLetter] = useState([]);
 
+  const mezclar = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  const randomLetters = (letras = "") => {
+     let letrasarray = letras.split("");
+     let letrasrandom = [];
+
+     for (let i = 0; i < Math.floor(Math.random() * (10 - 3 + 1)) + 3; i++) {
+      letrasrandom += letrasarray[Math.floor(Math.random() * 26)]; 
+     }
+     return letrasrandom
+  }
+
   const extractWord = () => {
     const index = Math.floor(Math.random() * palabras.length);
     setWord(palabras[index].split(""));
@@ -16,17 +34,11 @@ function App() {
   useEffect(() => {
     const letras = "abcdefghijklmnopqrstuvwxyz";
 
-    const newpalabra = word.join("") + letras;
+    const newpalabra = word.join("") + randomLetters(letras);
 
     const letrasArray = newpalabra.split("");
 
-    const mezclar = (arr) => {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    };
+    
 
     setCardsLetter(mezclar(letrasArray));
   }, [word]);
