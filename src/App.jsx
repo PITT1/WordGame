@@ -17,9 +17,8 @@ function App() {
     const letras = "abcdefghijklmnopqrstuvwxyz";
 
     const newpalabra = word.join("") + letras;
-    console.log(newpalabra);
 
-    const letrasUnicas = [...new Set(newpalabra.split(""))];
+    const letrasArray = newpalabra.split("");
 
     const mezclar = (arr) => {
       for (let i = arr.length - 1; i > 0; i--) {
@@ -29,18 +28,7 @@ function App() {
       return arr;
     };
 
-    mezclar(letrasUnicas);
-    const palabrasDesordenadas = letrasUnicas
-      .map((letra, index) => {
-        if (index < word.length) {
-          return letra;
-        } else {
-          const randomIndex = Math.floor(Math.random() * letrasUnicas.length);
-          return letrasUnicas[randomIndex];
-        }
-      })
-
-    setCardsLetter(palabrasDesordenadas);
+    setCardsLetter(mezclar(letrasArray));
   }, [word]);
 
   return (
