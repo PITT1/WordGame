@@ -1,5 +1,6 @@
 import "./App.css";
 import palabras from "./utils/words";
+import pistas from "./utils/pistas";
 import OneLetter from "./components/OneLetter";
 import Card from "./components/Card";
 import { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ function App() {
   const [word, setWord] = useState([]);
   const [wordCheck, setWordCheck] = useState([]);
   const [cardsLetter, setCardsLetter] = useState([]);
+  const [pistasState, setPistasState] = useState("");
 
   const mezclar = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -30,6 +32,8 @@ function App() {
   const extractWord = () => {
     const index = Math.floor(Math.random() * palabras.length);
     setWord(palabras[index].split(""));
+    setPistasState(pistas[index]);
+    setWordCheck([]);
   };
 
   useEffect(() => {
@@ -54,6 +58,7 @@ function App() {
           <OneLetter key={index} letter={letter} />
         ))}
       </div>
+      <p className="pistas">{pistasState}</p>
       <button type="button" onClick={extractWord}>
         PALABRAS
       </button>
