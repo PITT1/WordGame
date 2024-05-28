@@ -4,12 +4,14 @@ import pistas from "./utils/pistas";
 import OneLetter from "./components/OneLetter";
 import Card from "./components/Card";
 import { useEffect, useState } from "react";
+import conffeti from 'canvas-confetti';
 
 function App() {
   const [word, setWord] = useState([]);
   const [wordCheck, setWordCheck] = useState([]);
   const [cardsLetter, setCardsLetter] = useState([]);
   const [pistasState, setPistasState] = useState("");
+  const [points, setPoints] = useState(0);
 
   const mezclar = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -47,12 +49,16 @@ function App() {
     console.log(wordCheck);
     console.log(word);
     if (word.join("") === wordCheck.join("") && wordCheck.join("") !== "") {
-      console.log("ganaste");
+      conffeti();
+      setPoints(before => before + 1);
     }
   },[wordCheck, word]);
 
   return (
     <main>
+      <div className="pointsTable">
+        <p>Palabras acertadas: {points}</p>
+      </div>
       <div className="Letters">
         {wordCheck.map((letter, index) => (
           <OneLetter key={index} letter={letter} />

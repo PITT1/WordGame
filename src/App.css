@@ -1,4 +1,8 @@
 
+main {
+  position: relative;
+}
+
 .wordContainer {
   padding: 10px 20px;
   margin: 10px;
@@ -9,7 +13,7 @@
 }
 
 .Letters {
-  height: 50vh;
+  height: 30vh;
   width: 100vw;
   display: flex;
   justify-content: center;
