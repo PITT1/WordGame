@@ -50,6 +50,53 @@ main {
 
 .modalVictory {
   position: absolute;
-  top: 40%;
-  left: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(69, 184, 46);
+  border-radius: 20px;
+  box-shadow: 0 0 20px black;
+}
+
+.modalVictory h1 {
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.btnClose {
+  font-size: 22px;
+  padding: 10px 30px;
+  background-color: rgb(146, 34, 34);
+  outline: none;
+  border: none;
+  border-top: 1px solid white;
+  border-radius: 0 0 0 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.btnNext {
+  font-size: 22px;
+  padding: 10px 30px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-top: 1px solid white;
+  border-radius: 0 0 20px 0;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.btnNext:hover {
+  background-color: green;
+}
+
+.btnClose:hover {
+  background-color: rgb(223, 88, 88);
+}
+
+.pointsTable {
+  font-size: 30px;
+  text-align: end;
+  margin: 0 30px;
 }

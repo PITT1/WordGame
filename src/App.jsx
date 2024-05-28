@@ -61,8 +61,8 @@ function App() {
     <main>
       {victoryModal && <div className="modalVictory">
                             <h1>Correcto!!</h1>
-                            <button type="button" onClick={extractWord}>Siguiente</button>
-                            <button type="button">Abandonar</button>
+                            <button className="btnClose" type="button">Abandonar</button>
+                            <button className="btnNext" type="button" onClick={extractWord}>Siguiente</button>
                         </div>}
       <div className="pointsTable">
         <p>Palabras acertadas: {points}</p>
