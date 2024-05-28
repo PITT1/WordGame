@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [word, setWord] = useState([]);
+  const [wordCheck, setWordCheck] = useState("");
   const [cardsLetter, setCardsLetter] = useState([]);
 
   const mezclar = (arr) => {
@@ -33,15 +34,16 @@ function App() {
 
   useEffect(() => {
     const letras = "abcdefghijklmnopqrstuvwxyz";
-
     const newpalabra = word.join("") + randomLetters(letras);
-
     const letrasArray = newpalabra.split("");
-
-    
-
     setCardsLetter(mezclar(letrasArray));
   }, [word]);
+
+  useEffect(() => {  //useEffect de la victoria
+    if (word.join("") === wordCheck && wordCheck !== "") {
+      console.log("ganaste");
+    }
+  },[wordCheck, word]);
 
   return (
     <main>
@@ -55,7 +57,10 @@ function App() {
       </button>
       <div className="CardsContainer">
         {
-          cardsLetter.map((letter, index) =>  <Card key={index} letter={letter}/>)
+          cardsLetter.map((letter, index) =>  <Card key={index}
+                                                    letter={letter} 
+                                                    letterFromCard={L => setWordCheck((before) => before += L)}
+                                                    />)
         }
       </div>
     </main>

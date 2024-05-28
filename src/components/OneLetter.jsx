@@ -16,7 +16,7 @@ const OneLetter = ({ letter }) => {
 }
 
 OneLetter.propTypes = {
-    letter: PropTypes.string.isRequired
+    letter: PropTypes.string
 }
 export default OneLetter;
 
