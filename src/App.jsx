@@ -12,6 +12,7 @@ function App() {
   const [cardsLetter, setCardsLetter] = useState([]);
   const [pistasState, setPistasState] = useState("");
   const [points, setPoints] = useState(0);
+  const [victoryModal, setVictoryModal] = useState(false);
 
   const mezclar = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -32,6 +33,7 @@ function App() {
   }
 
   const extractWord = () => {
+    setVictoryModal(false);
     const index = Math.floor(Math.random() * palabras.length);
     setWord(palabras[index].split(""));
     setPistasState(pistas[index]);
@@ -51,11 +53,17 @@ function App() {
     if (word.join("") === wordCheck.join("") && wordCheck.join("") !== "") {
       conffeti();
       setPoints(before => before + 1);
+      setVictoryModal(true);
     }
   },[wordCheck, word]);
 
   return (
     <main>
+      {victoryModal && <div className="modalVictory">
+                            <h1>Correcto!!</h1>
+                            <button type="button" onClick={extractWord}>Siguiente</button>
+                            <button type="button">Abandonar</button>
+                        </div>}
       <div className="pointsTable">
         <p>Palabras acertadas: {points}</p>
       </div>
