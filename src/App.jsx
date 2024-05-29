@@ -13,6 +13,8 @@ function App() {
   const [pistasState, setPistasState] = useState("");
   const [points, setPoints] = useState(0);
   const [victoryModal, setVictoryModal] = useState(false);
+  const [gameOverModal, setGameOverModal] = useState(false);
+  const [initGameModal, setInitGameModal] = useState(true);
 
   const mezclar = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -40,6 +42,22 @@ function App() {
     setWordCheck([]);
   };
 
+  const handleGameOver = () => {
+    setVictoryModal(false);
+    setGameOverModal(true);
+  }
+
+  const resetGame = () => {
+    setGameOverModal(false);
+    setPoints(0);
+    extractWord();
+  }
+
+  const initGame = () => {
+    setInitGameModal(false);
+    extractWord();
+  }
+
   useEffect(() => {
     const letras = "abcdefghijklmnopqrstuvwxyz";
     const newpalabra = word.join("") + randomLetters(letras);
@@ -59,9 +77,20 @@ function App() {
 
   return (
     <main>
+      {initGameModal && <div className="modalInitGame">
+                            <h1>El juego de palabras</h1>
+                            <p>suma puntos adivinando las palabras mediante pistas</p>
+                            <button type="button" onClick={initGame}>Empezar</button>
+                        </div>}
+      {gameOverModal && <div className="modalGameOver">
+                            <h1>FIN DEL JUEGO</h1>
+                            <p>gracias por jugar</p>
+                            <p>tu puntuacion fue de: {points} palabras acertadas</p>
+                            <button type="button" onClick={resetGame}>Nuevo juego</button>
+                        </div>}
       {victoryModal && <div className="modalVictory">
                             <h1>Correcto!!</h1>
-                            <button className="btnClose" type="button">Abandonar</button>
+                            <button className="btnClose" type="button" onClick={handleGameOver}>Abandonar</button>
                             <button className="btnNext" type="button" onClick={extractWord}>Siguiente</button>
                         </div>}
       <div className="pointsTable">
@@ -73,9 +102,6 @@ function App() {
         ))}
       </div>
       <p className="pistas">{pistasState}</p>
-      <button type="button" onClick={extractWord}>
-        PALABRAS
-      </button>
       <div className="CardsContainer">
         {
           cardsLetter.map((letter, index) =>  <Card key={index}

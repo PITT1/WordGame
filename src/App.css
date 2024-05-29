@@ -100,3 +100,77 @@ main {
   text-align: end;
   margin: 0 30px;
 }
+
+.modalGameOver {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(36, 124, 151);
+  border-radius: 20px;
+  box-shadow: 0 0 20px black;
+}
+
+.modalGameOver h1 {
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.modalGameOver p {
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.modalGameOver button {
+  font-size: 22px;
+  padding: 10px 30px;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-top: 1px solid white;
+  border-radius: 0 0 20px 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.modalGameOver button:hover {
+  background-color: green;
+}
+
+.modalInitGame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(36, 124, 151);
+  border-radius: 20px;
+  box-shadow: 0 0 20px black;
+  text-align: center;
+}
+
+.modalInitGame button {
+  font-size: 22px;
+  padding: 10px 30px;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-top: 1px solid white;
+  border-radius: 0 0 20px 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.modalInitGame button:hover {
+  background-color: green;
+}
+
+.modalInitGame p {
+  font-size: 22px;
+  margin: 0 10px;
+  padding-bottom: 20px;
+}
