@@ -174,3 +174,14 @@ main {
   margin: 0 10px;
   padding-bottom: 20px;
 }
+
+.btnContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btnContainer button {
+  font-size: 22px;
+  padding: 10px 20px;
+}

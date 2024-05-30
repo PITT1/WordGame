@@ -58,6 +58,12 @@ function App() {
     extractWord();
   }
 
+  const deleteWord = () => {
+    const arrayCopy = wordCheck.slice();
+    arrayCopy.pop();
+    setWordCheck(arrayCopy);
+  }
+
   useEffect(() => {
     const letras = "abcdefghijklmnopqrstuvwxyz";
     const newpalabra = word.join("") + randomLetters(letras);
@@ -66,8 +72,6 @@ function App() {
   }, [word]);
 
   useEffect(() => {  //useEffect de la victoria
-    console.log(wordCheck);
-    console.log(word);
     if (word.join("") === wordCheck.join("") && wordCheck.join("") !== "") {
       conffeti();
       setPoints(before => before + 1);
@@ -109,6 +113,9 @@ function App() {
                                                     letterFromCard={L => setWordCheck((before) => [...before, L])}
                                                     />)
         }
+      </div>
+      <div className="btnContainer">
+        <button type="button" onClick={deleteWord}>Borrar</button>
       </div>
     </main>
   );
