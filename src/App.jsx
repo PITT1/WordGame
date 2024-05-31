@@ -112,7 +112,7 @@ function App() {
       {initGameModal && (
         <div className="modalInitGame">
           <h1>El juego de palabras</h1>
-          <p>suma puntos adivinando las palabras mediante pistas</p>
+          <p>suma puntos adivinando las palabras mediante pistas, si te rindes, puedes sacrificar una vida para buscar otra palabra hasta que no te quede ninguna</p>
           <button type="button" onClick={initGame}>
             Empezar
           </button>
