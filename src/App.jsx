@@ -4,7 +4,7 @@ import pistas from "./utils/pistas";
 import OneLetter from "./components/OneLetter";
 import Card from "./components/Card";
 import { useEffect, useState } from "react";
-import conffeti from 'canvas-confetti';
+import conffeti from "canvas-confetti";
 
 function App() {
   const [word, setWord] = useState([]);
@@ -15,6 +15,13 @@ function App() {
   const [victoryModal, setVictoryModal] = useState(false);
   const [gameOverModal, setGameOverModal] = useState(false);
   const [initGameModal, setInitGameModal] = useState(true);
+  const [lives, setLives] = useState([
+    <div key="1" className="live"></div>,
+    <div key="2" className="live"></div>,
+    <div key="3" className="live"></div>,
+    <div key="4" className="live"></div>,
+    <div key="5" className="live"></div>,
+  ]);
 
   const mezclar = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -25,14 +32,14 @@ function App() {
   };
 
   const randomLetters = (letras = "") => {
-     let letrasarray = letras.split("");
-     let letrasrandom = [];
+    let letrasarray = letras.split("");
+    let letrasrandom = [];
 
-     for (let i = 0; i < Math.floor(Math.random() * (10 - 3 + 1)) + 3; i++) {
-      letrasrandom += letrasarray[Math.floor(Math.random() * 26)]; 
-     }
-     return letrasrandom
-  }
+    for (let i = 0; i < Math.floor(Math.random() * (10 - 3 + 1)) + 3; i++) {
+      letrasrandom += letrasarray[Math.floor(Math.random() * 26)];
+    }
+    return letrasrandom;
+  };
 
   const extractWord = () => {
     setVictoryModal(false);
@@ -45,24 +52,44 @@ function App() {
   const handleGameOver = () => {
     setVictoryModal(false);
     setGameOverModal(true);
-  }
+  };
 
   const resetGame = () => {
     setGameOverModal(false);
     setPoints(0);
     extractWord();
-  }
+    setLives([
+      <div key="1" className="live"></div>,
+      <div key="2" className="live"></div>,
+      <div key="3" className="live"></div>,
+      <div key="4" className="live"></div>,
+      <div key="5" className="live"></div>,
+    ]);
+  };
 
   const initGame = () => {
     setInitGameModal(false);
     extractWord();
-  }
+  };
 
   const deleteWord = () => {
     const arrayCopy = wordCheck.slice();
     arrayCopy.pop();
     setWordCheck(arrayCopy);
-  }
+  };
+
+  const nextWord = () => {
+    let arr = [...lives];
+    arr.pop();
+    setLives(arr);
+    extractWord();
+  };
+
+  useEffect(()=>{
+    if (lives.length === 0) {
+      setGameOverModal(true);
+    }
+  },[lives]);
 
   useEffect(() => {
     const letras = "abcdefghijklmnopqrstuvwxyz";
@@ -71,34 +98,56 @@ function App() {
     setCardsLetter(mezclar(letrasArray));
   }, [word]);
 
-  useEffect(() => {  //useEffect de la victoria
+  useEffect(() => {
+    //useEffect de la victoria
     if (word.join("") === wordCheck.join("") && wordCheck.join("") !== "") {
       conffeti();
-      setPoints(before => before + 1);
+      setPoints((before) => before + 1);
       setVictoryModal(true);
     }
-  },[wordCheck, word]);
+  }, [wordCheck, word]);
 
   return (
     <main>
-      {initGameModal && <div className="modalInitGame">
-                            <h1>El juego de palabras</h1>
-                            <p>suma puntos adivinando las palabras mediante pistas</p>
-                            <button type="button" onClick={initGame}>Empezar</button>
-                        </div>}
-      {gameOverModal && <div className="modalGameOver">
-                            <h1>FIN DEL JUEGO</h1>
-                            <p>gracias por jugar</p>
-                            <p>tu puntuacion fue de: {points} palabras acertadas</p>
-                            <button type="button" onClick={resetGame}>Nuevo juego</button>
-                        </div>}
-      {victoryModal && <div className="modalVictory">
-                            <h1>Correcto!!</h1>
-                            <button className="btnClose" type="button" onClick={handleGameOver}>Abandonar</button>
-                            <button className="btnNext" type="button" onClick={extractWord}>Siguiente</button>
-                        </div>}
+      {initGameModal && (
+        <div className="modalInitGame">
+          <h1>El juego de palabras</h1>
+          <p>suma puntos adivinando las palabras mediante pistas</p>
+          <button type="button" onClick={initGame}>
+            Empezar
+          </button>
+        </div>
+      )}
+      {gameOverModal && (
+        <div className="modalGameOver">
+          <h1>FIN DEL JUEGO</h1>
+          <p>gracias por jugar</p>
+          <p>tu puntuacion fue de: {points} palabras acertadas</p>
+          <button type="button" onClick={resetGame}>
+            Nuevo juego
+          </button>
+        </div>
+      )}
+      {victoryModal && (
+        <div className="modalVictory">
+          <h1>Correcto!!</h1>
+          <button className="btnClose" type="button" onClick={handleGameOver}>
+            Abandonar
+          </button>
+          <button className="btnNext" type="button" onClick={extractWord}>
+            Siguiente
+          </button>
+        </div>
+      )}
       <div className="pointsTable">
-        <p>Palabras acertadas: {points}</p>
+        <div className="live-container">
+        {lives.map((live, index) => (
+        <div style={{display: "flex"}} key={index}>
+          {live}
+        </div>
+      ))}
+        </div>
+        <p>✔: {points}</p>
       </div>
       <div className="Letters">
         {wordCheck.map((letter, index) => (
@@ -107,15 +156,21 @@ function App() {
       </div>
       <p className="pistas">{pistasState}</p>
       <div className="CardsContainer">
-        {
-          cardsLetter.map((letter, index) =>  <Card key={index}
-                                                    letter={letter} 
-                                                    letterFromCard={L => setWordCheck((before) => [...before, L])}
-                                                    />)
-        }
+        {cardsLetter.map((letter, index) => (
+          <Card
+            key={index}
+            letter={letter}
+            letterFromCard={(L) => setWordCheck((before) => [...before, L])}
+          />
+        ))}
       </div>
       <div className="btnContainer">
-        <button type="button" onClick={deleteWord}>Borrar</button>
+        <button type="button" onClick={deleteWord}>
+          Borrar
+        </button>
+        <button type="button" onClick={nextWord}>
+          Siguiente palabra -❤
+        </button>
       </div>
     </main>
   );
