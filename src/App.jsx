@@ -123,25 +123,27 @@ function App() {
         </motion.div>
       )}
       {gameOverModal && (
-        <div className="modalGameOver">
+        <motion.div initial={{scale: 0}} animate={{scale: 1}} exit={{scale: 0}} className="modalGameOver">
           <h1>FIN DEL JUEGO</h1>
           <p>gracias por jugar</p>
           <p>tu puntuacion fue de: {points} palabras acertadas</p>
           <button type="button" onClick={resetGame}>
             Nuevo juego
           </button>
-        </div>
+        </motion.div>
       )}
       {victoryModal && (
-        <div className="modalVictory">
+        <motion.div initial={{scale: 0}} animate={{scale: 1}} exit={{scale: 0}} className="modalVictory">
           <h1>Correcto!!</h1>
+          <div>
           <button className="btnClose" type="button" onClick={handleGameOver}>
             Abandonar
           </button>
           <button className="btnNext" type="button" onClick={extractWord}>
             Siguiente
           </button>
-        </div>
+          </div>
+        </motion.div>
       )} </AnimatePresence>
       {runGame && <motion.section initial={{opacity:0}} animate={{opacity: 1}}>
       <div className="pointsTable">

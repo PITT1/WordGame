@@ -51,12 +51,28 @@ main {
 
 .modalVictory {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 400px;
+  max-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: rgb(69, 184, 46);
   border-radius: 20px;
   box-shadow: 0 0 20px black;
+}
+
+.modalVictory div {
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    justify-items: stretch;
+    align-items: stretch;
 }
 
 .modalVictory h1 {
@@ -104,9 +120,16 @@ main {
 
 .modalGameOver {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 500px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: rgb(36, 124, 151);
   border-radius: 20px;
   box-shadow: 0 0 20px black;
