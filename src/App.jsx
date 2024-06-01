@@ -5,6 +5,7 @@ import OneLetter from "./components/OneLetter";
 import Card from "./components/Card";
 import { useEffect, useState } from "react";
 import conffeti from "canvas-confetti";
+import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
   const [word, setWord] = useState([]);
@@ -111,14 +112,15 @@ function App() {
 
   return (
     <main>
+      <AnimatePresence>
       {initGameModal && (
-        <div className="modalInitGame">
+        <motion.div initial={{scale: 0}} animate={{scale: 1}} exit={{scale: 0}}  className="modalInitGame">
           <h1>El juego de palabras</h1>
           <p>suma puntos adivinando las palabras mediante pistas, si te rindes, puedes sacrificar una vida para buscar otra palabra hasta que no te quede ninguna</p>
           <button type="button" onClick={initGame}>
             Empezar
           </button>
-        </div>
+        </motion.div>
       )}
       {gameOverModal && (
         <div className="modalGameOver">
@@ -140,8 +142,8 @@ function App() {
             Siguiente
           </button>
         </div>
-      )}
-      {runGame && <section>
+      )} </AnimatePresence>
+      {runGame && <motion.section initial={{opacity:0}} animate={{opacity: 1}}>
       <div className="pointsTable">
         <div className="live-container">
         {lives.map((live, index) => (
@@ -175,7 +177,7 @@ function App() {
           Siguiente palabra -❤
         </button>
       </div>
-      </section>}
+      </motion.section>}
     </main>
   );
 }
