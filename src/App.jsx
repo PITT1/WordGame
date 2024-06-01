@@ -15,6 +15,7 @@ function App() {
   const [victoryModal, setVictoryModal] = useState(false);
   const [gameOverModal, setGameOverModal] = useState(false);
   const [initGameModal, setInitGameModal] = useState(true);
+  const [runGame, setRunGame] = useState(false);
   const [lives, setLives] = useState([
     <div key="1" className="live"></div>,
     <div key="2" className="live"></div>,
@@ -68,6 +69,7 @@ function App() {
   };
 
   const initGame = () => {
+    setRunGame(true);
     setInitGameModal(false);
     extractWord();
   };
@@ -139,6 +141,7 @@ function App() {
           </button>
         </div>
       )}
+      {runGame && <section>
       <div className="pointsTable">
         <div className="live-container">
         {lives.map((live, index) => (
@@ -172,6 +175,7 @@ function App() {
           Siguiente palabra -❤
         </button>
       </div>
+      </section>}
     </main>
   );
 }
